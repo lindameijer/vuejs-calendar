@@ -8,12 +8,13 @@
 export default {
   data() {
     return {
-      month: 2,
+      month: 5,
       year: 2019
     };
   },
   computed: {
     days() {
+      // Generate all days in current month
       let days = [];
       let currentDay = this.$moment(`${this.year}-${this.month}-1`, "YYYY-M-D");
 
@@ -21,6 +22,28 @@ export default {
         days.push(currentDay);
         currentDay = this.$moment(currentDay).add(1, "days");
       } while (currentDay.month() + 1 === this.month);
+
+      const SUNDAY = 0;
+      const MONDAY = 1;
+
+      // Add previous days to start
+      currentDay = this.$moment(days[0]);
+      if (currentDay.day() !== MONDAY) {
+        do {
+          currentDay = this.$moment(currentDay).subtract(1, "days");
+          days.unshift(currentDay);
+        } while (currentDay.day() !== MONDAY);
+      }
+
+      // Add following days to end
+      currentDay = this.$moment(days[days.length - 1]);
+      if (currentDay.day() !== SUNDAY) {
+        do {
+          currentDay = this.$moment(currentDay).add(1, "days");
+          days.push(currentDay);
+        } while (currentDay.day() !== SUNDAY);
+      }
+
       return days;
     }
   },
