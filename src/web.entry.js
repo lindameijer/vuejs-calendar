@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import './style.scss'
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 import moment from 'moment-timezone'
 moment.tz.setDefault('UTC')
 Object.defineProperty(Vue.prototype, '$moment', {
@@ -15,5 +18,11 @@ new Vue({
   data: {
     moment
   },
-  components: { App }
+  components: { App },
+  store: {
+    state: {
+      currentYear: 2019,
+      currentMonth: 3
+    }
+  }
 })
