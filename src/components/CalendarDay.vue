@@ -17,11 +17,15 @@ export default {
       );
     },
     classObject() {
+      let eventFormDate = this.$store.state.eventFormDate;
+      let eventFormActiv = this.$store.state.eventFormActive;
       let today = this.day.isSame(this.$moment(), "day");
+
       return {
         day: true,
         today,
-        past: this.day.isSameOrBefore(this.$moment(), "day") && !today
+        past: this.day.isSameOrBefore(this.$moment(), "day") && !today,
+        active: eventFormDate.isSame(this.day, "day") && eventFormActiv
       };
     }
   },
@@ -32,6 +36,7 @@ export default {
         y: event.clientY
       });
       this.$store.commit("eventFormActive", true);
+      this.$store.commit("eventFormDate", this.day);
     }
   }
 };
