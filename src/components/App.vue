@@ -23,7 +23,7 @@ import CalendarDay from "./CalendarDay.vue";
 export default {
   data() {
     return {
-      month: 5,
+      month: 3,
       year: 2019
     };
   },
